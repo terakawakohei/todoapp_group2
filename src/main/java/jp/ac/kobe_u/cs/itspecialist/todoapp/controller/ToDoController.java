@@ -31,7 +31,7 @@ public class ToDoController {
      */
     @GetMapping("/")
     String showIndex(@ModelAttribute(name = "loginForm") LoginForm loginForm, Model model) {
-        //model.addAttribute("loginForm", loginForm);
+        // model.addAttribute("loginForm", loginForm);
         return "index";
     }
 
@@ -98,6 +98,15 @@ public class ToDoController {
     @GetMapping("/{mid}/todos/{seq}/done")
     String doneToDo(@PathVariable String mid, @PathVariable Long seq, Model model) {
         tService.done(mid, seq);
+        return "redirect:/" + mid + "/todos";
+    }
+
+    /**
+     * ToDoの完了のキャンセル．キャンセル終了後，ユーザページへリダイレクト
+     */
+    @GetMapping("/{mid}/todos/{seq}/cancel")
+    String cancelToDo(@PathVariable String mid, @PathVariable Long seq, Model model) {
+        tService.cancel(mid, seq);
         return "redirect:/" + mid + "/todos";
     }
 }
